@@ -1,5 +1,6 @@
 import discord
 import os
+from datetime import datetime
 
 apex_words = [
     'cage',
@@ -18,7 +19,6 @@ bot_channels = [
 ]
 
 def string_contains_word(text, word_list):
-    print(text)
     return any(word in text for word in word_list)
 
 
@@ -39,6 +39,7 @@ class MyClient(discord.Client):
             return
 
         if string_contains_word(message.content.lower(), apex_words):
+            print(datetime.now().strftime("%d/%m/%y %H:%M:%S") + " - CAGE")
             await message.add_reaction('🇨')
             await message.add_reaction('🇦')
             await message.add_reaction('🇬')
