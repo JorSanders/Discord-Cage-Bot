@@ -2,6 +2,7 @@ import discord
 import os
 from datetime import datetime
 
+# Bot triggers on these words
 apex_words = [
     'cage',
     'apex',
@@ -21,13 +22,14 @@ apex_words = [
     'tonight'
 ]
 
+# Bot triggers in these channels
 bot_channels = [
     'general',
     'cage'
 ]
 
+# Bot triggers on role mentions
 role_names = [
-    'general',
     'cage'
 ]
 
