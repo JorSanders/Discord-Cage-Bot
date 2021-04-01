@@ -25,7 +25,7 @@ apex_words = [
     'bloodhound',
     'crypto',
     'fuse',
-    'gib'
+    'gib',
     'horizon',
     'lifeline',
     'loba',
