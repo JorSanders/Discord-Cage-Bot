@@ -7,7 +7,7 @@ DISCORD_BOT_TOKEN=xxxx python3 src/bot.py
 
 [remote] In background with logging
 ```
-python3 /usr/local/app/discord_cage_bot.py > /var/log/discord_cage_bot.log 2>&1 &
+python3 -u /usr/local/app/discord_cage_bot.py > /var/log/discord_cage_bot.log 2>&1 &
 ```
 
 Stop background (not safe)
