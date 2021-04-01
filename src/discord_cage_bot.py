@@ -19,8 +19,23 @@ apex_words = [
     'wow',
     'lmao',
     'join',
-    'tonight',
-    'bique'
+    'night',
+    'bique',
+    'bangalore',
+    'bloodhound',
+    'crypto',
+    'fuse',
+    'gib'
+    'horizon',
+    'lifeline',
+    'loba',
+    'miraga',
+    'tane',
+    'path',
+    'rampart',
+    'rev', 
+    'wattson',
+    'wraith'
 ]
 
 # Bot triggers in these channels
