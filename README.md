@@ -1,20 +1,16 @@
 # Usage
-Start the bot
+
+[local] Start the bot
 ```
 DISCORD_BOT_TOKEN=xxxx python3 src/bot.py
 ```
 
-In background
-```
-python3 src/bot.py &
-```
-
-In background with logging
+[remote] In background with logging
 ```
 python3 /usr/local/app/discord_cage_bot.py > /var/log/discord_cage_bot.log 2>&1 &
 ```
 
-stop background
+Stop background (not safe)
 ```
 kill $(pgrep python)
 ```
