@@ -19,7 +19,8 @@ apex_words = [
     'wow',
     'lmao',
     'join',
-    'tonight'
+    'tonight',
+    'bique'
 ]
 
 # Bot triggers in these channels
@@ -75,5 +76,4 @@ class MyClient(discord.Client):
             await message.add_reaction('🇪')
 
 client = MyClient()
-
 client.run(os.environ.get('DISCORD_BOT_TOKEN'))
