@@ -2,7 +2,7 @@
 
 [local] Start the bot
 ```
-DISCORD_BOT_TOKEN=xxxx python3 src/bot.py
+DISCORD_BOT_TOKEN=xxxx python3 src/discord_cage_bot.py 
 ```
 
 [remote] In background with logging

@@ -11,16 +11,28 @@ apex_words = [
     'spot',
     'play',
     'ready',
-    'jor'
+    'jor',
+    '1 am',
+    '1am',
+    'warrior',
+    'wow',
+    'lmao',
+    'join',
+    'tonight'
 ]
 
 bot_channels = [
-    'general'
+    'general',
+    'cage'
+]
+
+role_names = [
+    'general',
+    'cage'
 ]
 
 def string_contains_word(text, word_list):
     return any(word in text for word in word_list)
-
 
 class MyClient(discord.Client):
     async def on_ready(self):
@@ -29,17 +41,32 @@ class MyClient(discord.Client):
         print(self.user.id)
         print('------')
 
+    def cage_related_message(self, message):
+        if string_contains_word(message.content.lower(), apex_words):
+            print("Apex word found in message")
+            return True
+
+        for mention in message.role_mentions:
+            if string_contains_word(mention.name.lower(), role_names):
+                print("Cage mention found in message")
+                return True
+        
+        print("Not a cage message")
+        return False
+
     async def on_message(self, message):
         if message.author.id == self.user.id:
             # We do not want the bot to reply to itself
+            Print("This bot message")
             return
 
         if not string_contains_word(message.channel.name, bot_channels):
             # We do not want the bot to text in non whitelisted channels
+            Print("Channel not in whitelist")
             return
 
-        if string_contains_word(message.content.lower(), apex_words):
-            print(datetime.now().strftime("%d/%m/%y %H:%M:%S") + " - CAGE")
+        if self.cage_related_message(message):
+            print(datetime.now().strftime("%d/%m/%y %H:%M:%S") + " - C A G E")
             await message.add_reaction('🇨')
             await message.add_reaction('🇦')
             await message.add_reaction('🇬')
