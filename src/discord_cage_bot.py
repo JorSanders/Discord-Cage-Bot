@@ -7,50 +7,45 @@ import discord
 
 # Bot triggers on these words
 apex_words = [
-    'cage',
-    'apex',
-    'game',
-    'c a g e',
-    'carry',
-    'spot',
-    'play',
-    'ready',
-    'jor',
-    '1 am',
-    '1am',
-    'warrior',
-    'wow',
-    'lmao',
-    'join',
-    'night',
-    'bique',
-    'bangalore',
-    'bloodhound',
-    'crypto',
-    'fuse',
-    'gib',
-    'horizon',
-    'lifeline',
-    'loba',
-    'miraga',
-    'tane',
-    'path',
-    'rampart',
-    'rev',
-    'wattson',
-    'wraith'
+    "cage",
+    "apex",
+    "game",
+    "c a g e",
+    "carry",
+    "spot",
+    "play",
+    "ready",
+    "jor",
+    "1 am",
+    "1am",
+    "warrior",
+    "wow",
+    "lmao",
+    "join",
+    "night",
+    "bique",
+    "bangalore",
+    "bloodhound",
+    "crypto",
+    "fuse",
+    "gib",
+    "horizon",
+    "lifeline",
+    "loba",
+    "miraga",
+    "tane",
+    "path",
+    "rampart",
+    "rev",
+    "wattson",
+    "wraith",
 ]
 
 # Bot triggers in these channels
-bot_channels = [
-    'general',
-    'cage'
-]
+bot_channels = ["general", "cage"]
 
 # Bot triggers on role mentions
-role_names = [
-    'cage'
-]
+role_names = ["cage"]
 
 
 def string_contains_word(text, word_list):
@@ -73,10 +68,10 @@ def cage_related_message(message):
 
 class MyClient(discord.Client):
     async def on_ready(self):
-        print('Logged in as')
+        print("Logged in as")
         print(self.user.name)
         print(self.user.id)
-        print('------')
+        print("------")
 
     async def on_message(self, message):
         if message.author.id == self.user.id:
@@ -91,11 +86,11 @@ class MyClient(discord.Client):
 
         if cage_related_message(message):
             print(datetime.now().strftime("%d/%m/%y %H:%M:%S") + " - C A G E")
-            await message.add_reaction('🇨')
-            await message.add_reaction('🇦')
-            await message.add_reaction('🇬')
-            await message.add_reaction('🇪')
+            await message.add_reaction("🇨")
+            await message.add_reaction("🇦")
+            await message.add_reaction("🇬")
+            await message.add_reaction("🇪")
 
 
 client = MyClient()
-client.run(os.environ.get('DISCORD_BOT_TOKEN'))
+client.run(os.environ.get("DISCORD_BOT_TOKEN"))
