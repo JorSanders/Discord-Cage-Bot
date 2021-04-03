@@ -45,6 +45,7 @@ apex_words = [
     "up",
 ]
 
+
 # Bot triggers in these channels
 bot_channels = ["general", "cage"]
 
