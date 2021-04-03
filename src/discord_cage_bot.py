@@ -52,8 +52,10 @@ role_names = [
     'cage'
 ]
 
+
 def string_contains_word(text, word_list):
     return any(word in text for word in word_list)
+
 
 def cage_related_message(message):
     if string_contains_word(message.content.lower(), apex_words):
@@ -67,6 +69,7 @@ def cage_related_message(message):
 
     print("Not a cage message")
     return False
+
 
 class MyClient(discord.Client):
     async def on_ready(self):
@@ -82,7 +85,7 @@ class MyClient(discord.Client):
             return
 
         if not string_contains_word(message.channel.name, bot_channels):
-                 # We do not want the bot to text in non whitelisted channels
+            # We do not want the bot to text in non whitelisted channels
             print("Channel not in whitelist")
             return
 
@@ -92,6 +95,7 @@ class MyClient(discord.Client):
             await message.add_reaction('🇦')
             await message.add_reaction('🇬')
             await message.add_reaction('🇪')
+
 
 client = MyClient()
 client.run(os.environ.get('DISCORD_BOT_TOKEN'))
