@@ -1,4 +1,7 @@
-# Usage
+# Discord Cage bot
+This is a Discord bot that replies C A G E to certain messages
+
+## Usage
 
 [local] Start the bot
 ```shell
@@ -17,7 +20,7 @@ kill $(pgrep python)
 
 Get the bot token from [here](https://discord.com/developers/applications)
 
-# Setup
+## Setup
 install python3 and pip3
 install discord pip package
 ```shell
