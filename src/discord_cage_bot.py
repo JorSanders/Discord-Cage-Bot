@@ -39,6 +39,10 @@ apex_words = [
     "rev",
     "wattson",
     "wraith",
+    "bathe",
+    "broth",
+    "down",
+    "up",
 ]
 
 # Bot triggers in these channels
