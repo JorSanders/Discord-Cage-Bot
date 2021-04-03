@@ -1,6 +1,7 @@
-import discord
 import os
 from datetime import datetime
+
+import discord
 
 # Bot triggers on these words
 apex_words = [
@@ -33,7 +34,7 @@ apex_words = [
     'tane',
     'path',
     'rampart',
-    'rev', 
+    'rev',
     'wattson',
     'wraith'
 ]
@@ -68,7 +69,7 @@ class MyClient(discord.Client):
             if string_contains_word(mention.name.lower(), role_names):
                 print("Cage mention found in message")
                 return True
-        
+
         print("Not a cage message")
         return False
 
