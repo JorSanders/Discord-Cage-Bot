@@ -1,7 +1,6 @@
 from .discord_cage_bot import cage_related_message
 from .discord_cage_bot import string_contains_word
 from .discord_cage_bot import DiscordCageClient
-from mock import Mock
 import unittest
 
 class DiscordMessageMock():
