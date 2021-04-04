@@ -18,11 +18,11 @@ jobs:
     needs: [lint]
     environment: production
     runs-on: ubuntu-latest
-    name: Deploy Discord Cage bot to AWS and start it
+    name: Deploy Discord Cage bot to production server and start it
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-    - name: Deploy to AWS
+    - name: Deploy to production server
       run: |
         echo "===== Creating ~/.ssh directory"
         mkdir -p ~/.ssh/
