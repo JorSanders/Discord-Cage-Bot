@@ -2,7 +2,7 @@
 This is a Discord bot that replies C A G E to certain messages
 
 ## Badges
-[![GitHub Super-Linter](https://github.com/JorSanders/discord_cage_bot/workflows/CI%2FCD/badge.svg)](https://github.com/marketplace/actions/super-linter)
+![GitHub Super-Linter](https://github.com/JorSanders/discord_cage_bot/workflows/CI%2FCD/badge.svg)
 
 ## Usage
 
