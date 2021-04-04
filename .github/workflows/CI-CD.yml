@@ -5,7 +5,7 @@ on: [push]
 
 jobs:
   lint:
-    name: Lint code base
+    name: Linters
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -14,8 +14,21 @@ jobs:
         uses: github/super-linter@v3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VALIDATE_PYTHON_ISORT: false
+  unit-test:
+    name: Unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Run unittest
+        run: |
+          pip3 install discord
+          python3  -m unittest jorkol/discord_cage_bot/tests/*.py
+        shell: bash
   production-deploy:
-    needs: [lint]
+    needs: [lint, unit-test]
+    if: github.ref == 'refs/heads/master'
     environment: production
     runs-on: ubuntu-latest
     name: Deploy to production server
@@ -34,7 +47,7 @@ jobs:
         echo "===== Adding key to agent"
         ssh-add ~/.ssh/ec2_deploy.key
         echo "===== Copying files to EC2-AWS"
-        scp src/discord_cage_bot.py ${{secrets.EC2_SSH}}:/usr/local/app/discord_cage_bot.py
+        scp jorkol/discord_cage_bot/src/discord_cage_bot.py ${{secrets.EC2_SSH}}:/usr/local/app/discord_cage_bot.py
         echo "(Re-)starting Discord Cage bot"
         ssh ${{secrets.EC2_SSH}} 'kill $(pgrep python); python3 -u /usr/local/app/discord_cage_bot.py > /var/log/discord_cage_bot.log 2>&1 &'
       shell: bash

@@ -70,7 +70,7 @@ def cage_related_message(message):
     return False
 
 
-class MyClient(discord.Client):
+class DiscordCageClient(discord.Client):
     async def on_ready(self):
         print("Logged in as")
         print(self.user.name)
@@ -78,6 +78,7 @@ class MyClient(discord.Client):
         print("------")
 
     async def on_message(self, message):
+        print("Message received")
         if message.author.id == self.user.id:
             # We do not want the bot to reply to itself
             print("This bot message")
@@ -96,5 +97,6 @@ class MyClient(discord.Client):
             await message.add_reaction("🇪")
 
 
-client = MyClient()
-client.run(os.environ.get("DISCORD_BOT_TOKEN"))
+if __name__ == "__main__":
+    discord_cage_client = DiscordCageClient()
+    discord_cage_client.run(os.environ.get("DISCORD_BOT_TOKEN"))
