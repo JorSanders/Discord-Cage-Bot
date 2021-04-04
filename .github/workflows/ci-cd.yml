@@ -1,0 +1,46 @@
+---
+name: CI/CD
+
+on: [push]
+
+jobs:
+  lint:
+    name: Lint code base
+    needs: [setup]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Run Super-Linter
+        uses: github/super-linter@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  production-deploy:
+    needs: [setup, lint]
+    environment: production
+    runs-on: ubuntu-latest
+    name: Deploy Discord Cage bot to AWS and start it
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Deploy to AWS
+      run: |
+        echo "===== Creating ~/.ssh directory"
+        mkdir -p ~/.ssh/
+        echo "$EC2_KNOWN_HOSTS" > ~/.ssh/known_hosts
+        echo "$EC2_DEPLOY_KEY" > ~/.ssh/ec2_deploy.key
+        chmod 600 ~/.ssh/ec2_deploy.key
+        echo "===== Starting SSH Agent"
+        eval `ssh-agent -s`
+        echo "===== Adding key to agent"
+        ssh-add ~/.ssh/ec2_deploy.key
+        echo "===== Copying files to EC2-AWS"
+        cat src/discord_cage_bot.py
+        scp src/discord_cage_bot.py ${{secrets.EC2_SSH}}:/usr/local/app/discord_cage_bot.py
+        echo "(Re-)starting Discord Cage bot"
+        ssh ${{secrets.EC2_SSH}} 'kill $(pgrep python); python3 -u /usr/local/app/discord_cage_bot.py > /var/log/discord_cage_bot.log 2>&1 &'
+      shell: bash
+      env:
+        EC2_DEPLOY_KEY: ${{secrets.EC2_DEPLOY_KEY}}
+        EC2_KNOWN_HOSTS: ${{secrets.EC2_KNOWN_HOSTS}}
+        EC2_SSH: ${{secrets.EC2_SSH}}

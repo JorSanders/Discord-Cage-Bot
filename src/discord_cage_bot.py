@@ -5,6 +5,12 @@ from datetime import datetime
 
 import discord
 
+# Bot triggers in these channels
+bot_channels = ["general", "cage"]
+
+# Bot triggers on role mentions
+role_names = ["cage"]
+
 # Bot triggers on these words
 apex_words = [
     "cage",
@@ -44,13 +50,6 @@ apex_words = [
     "down",
     "up",
 ]
-
-
-# Bot triggers in these channels
-bot_channels = ["general", "cage"]
-
-# Bot triggers on role mentions
-role_names = ["cage"]
 
 
 def string_contains_word(text, word_list):
