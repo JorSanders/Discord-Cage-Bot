@@ -2,13 +2,13 @@
 
 # Linters
 echo "Running isort"
-python3 -m isort $(find ./src/**py)
+python3 -m isort $(find discord_cage_bot/src/**.py)
 echo "Running python black"
-python3 -m black src
+python3 -m black discord_cage_bot/src/**.py
 echo "Running pylint"
-python3 -m pylint src
+python3 -m pylint discord_cage_bot/src/**.py
 echo "Running flake8"
-python3 -m flake8 src
+python3 -m flake8 discord_cage_bot/src/**.py
 
 # Unit test
-python3  -m unittest src/discord_cage_bot_test.py
+python3  -m unittest discord_cage_bot/tests/discord_cage_bot_test.py

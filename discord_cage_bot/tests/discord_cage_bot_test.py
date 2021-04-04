@@ -2,7 +2,7 @@
 
 import unittest
 
-from .discord_cage_bot import cage_related_message, string_contains_word
+from ..src.discord_cage_bot import cage_related_message, string_contains_word
 
 
 class TestDiscordCageBot(unittest.TestCase):

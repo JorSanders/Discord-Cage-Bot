@@ -23,7 +23,7 @@ jobs:
       - name: Run unittest
         run: |
           pip3 install discord
-          python3  -m unittest src/discord_cage_bot_test.py
+          python3  -m unittest discord_cage_bot/tests/discord_cage_bot_test.py
         shell: bash
   production-deploy:
     needs: [lint, unit-test]
@@ -45,7 +45,7 @@ jobs:
         echo "===== Adding key to agent"
         ssh-add ~/.ssh/ec2_deploy.key
         echo "===== Copying files to EC2-AWS"
-        scp src/discord_cage_bot.py ${{secrets.EC2_SSH}}:/usr/local/app/discord_cage_bot.py
+        scp discord_cage_bot/src/discord_cage_bot.py ${{secrets.EC2_SSH}}:/usr/local/app/discord_cage_bot.py
         echo "(Re-)starting Discord Cage bot"
         ssh ${{secrets.EC2_SSH}} 'kill $(pgrep python); python3 -u /usr/local/app/discord_cage_bot.py > /var/log/discord_cage_bot.log 2>&1 &'
       shell: bash
