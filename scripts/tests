@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Linters
+echo "Running python black"
+black src
+echo "Running pylint"
+pylint src
+echo "Running flake8"
+flake8 src
+
+# Unit test
+python3  -m unittest src/discord_cage_bot_test.py

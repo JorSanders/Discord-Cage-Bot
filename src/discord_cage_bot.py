@@ -5,10 +5,6 @@ from datetime import datetime
 
 import discord
 
-if __name__ == "__main__":
-    discord_cage_client = DiscordCageClient()
-    discord_cage_client.run(os.environ.get("DISCORD_BOT_TOKEN"))
-
 # Bot triggers in these channels
 bot_channels = ["general", "cage"]
 
@@ -99,3 +95,8 @@ class DiscordCageClient(discord.Client):
             await message.add_reaction("🇦")
             await message.add_reaction("🇬")
             await message.add_reaction("🇪")
+
+
+if __name__ == "__main__":
+    discord_cage_client = DiscordCageClient()
+    discord_cage_client.run(os.environ.get("DISCORD_BOT_TOKEN"))
