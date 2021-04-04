@@ -14,6 +14,7 @@ jobs:
         uses: github/super-linter@v3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VALIDATE_PYTHON_ISORT: false
   unit-test:
     name: Unit tests
     runs-on: ubuntu-latest
