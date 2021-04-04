@@ -20,7 +20,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Deploy Discord Cage bot to production server and start it
+      - name: Run unittest
         run: |
           pip3 install discord
           python3  -m unittest src/discord_cage_bot_test.py
