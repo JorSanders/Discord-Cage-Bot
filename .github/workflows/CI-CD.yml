@@ -1,9 +1,19 @@
 ---
-name: Deploy
+name: CI-CD
 
 on: [push]
 
 jobs:
+  lint:
+    name: Lint code base
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Run Super-Linter
+        uses: github/super-linter@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   production-deploy:
     needs: [lint]
     environment: production
