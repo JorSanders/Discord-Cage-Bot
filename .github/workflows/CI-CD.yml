@@ -14,8 +14,18 @@ jobs:
         uses: github/super-linter@v3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  unit-test:
+    name: Unit test code base
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Deploy Discord Cage bot to production server and start it
+        run: |
+          python3  -m unittest src/discord_cage_bot_test.py
+        shell: bash
   production-deploy:
-    needs: [lint]
+    needs: [lint, unit-test]
     environment: production
     runs-on: ubuntu-latest
     name: Deploy to production server
