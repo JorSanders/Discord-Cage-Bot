@@ -6,7 +6,6 @@ on: [push]
 jobs:
   lint:
     name: Lint code base
-    needs: [setup]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -16,7 +15,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   production-deploy:
-    needs: [setup, lint]
+    needs: [lint]
     environment: production
     runs-on: ubuntu-latest
     name: Deploy Discord Cage bot to AWS and start it
