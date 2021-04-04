@@ -19,4 +19,3 @@ Get the bot token from [here](https://discord.com/developers/applications)
 ```shell
 pip3 install discord
 ```
-

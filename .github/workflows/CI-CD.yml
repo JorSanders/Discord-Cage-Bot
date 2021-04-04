@@ -1,10 +1,7 @@
 ---
 name: CI-CD
 
-on:
-  push:
-    branches:
-      - master
+on: [push]
 
 jobs:
   lint:
