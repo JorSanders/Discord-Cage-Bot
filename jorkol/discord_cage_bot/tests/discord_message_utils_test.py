@@ -12,12 +12,8 @@ from jorkol.discord_cage_bot.src.discord_message_utils import (
 
 class TestDiscordCageBot(unittest.TestCase):
     def test_in_whitelisted_channel(self):
-        channel = type(
-            "ChannelMock", (object,), {"name": ""}
-        )()
-        discord_message = type(
-            "MessageMock", (object,), {"channel": channel}
-        )()
+        channel = type("ChannelMock", (object,), {"name": ""})()
+        discord_message = type("MessageMock", (object,), {"channel": channel})()
 
         self.assertFalse(in_whitelisted_channel(discord_message))
 
@@ -26,7 +22,6 @@ class TestDiscordCageBot(unittest.TestCase):
 
         discord_message.channel.name = "memes"
         self.assertFalse(in_whitelisted_channel(discord_message))
-
 
     def test_is_cage_related_message(self):
         discord_message = type(
