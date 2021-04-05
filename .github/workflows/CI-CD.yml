@@ -54,7 +54,7 @@ jobs:
         echo "===== Copying files to EC2-AWS"
         rsync -r --exclude="tests" --exclude="__pycache__" jorkol/ ${{secrets.EC2_SSH}}:/usr/local/app/jorkol
         echo "(Re-)starting Discord Cage bot"
-        ssh ${{secrets.EC2_SSH}} 'pkill -9 -f discord_cage_bot; \
+        ssh ${{secrets.EC2_SSH}} 'pkill -9 python; \
           cd /usr/local/app/; \
           python3 -m jorkol.discord_cage_bot.src.discord_cage_bot > /var/log/discord_cage_bot.log 2>&1 &'
       shell: bash
