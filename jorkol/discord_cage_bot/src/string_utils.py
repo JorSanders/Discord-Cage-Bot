@@ -10,7 +10,7 @@ def string_contains_word(text, word_list):
 def cagify_string(text):
     words = text.split()
     word_count = len(words)
-    cage_count = int(word_count / 10)
+    cage_count = int(word_count * 0.15)
 
     if cage_count == 0:
         cage_count = 1
@@ -18,11 +18,16 @@ def cagify_string(text):
     for _ in range(cage_count):
         index = randrange(word_count)
 
-        if words[index].endswith("."):
-            words[index] = "cage."
-        elif words[index].endswith(","):
-            words[index] = "cage,"
-        else:
-            words[index] = "cage"
+        cagification = "cage"
 
-    return "".join(words)
+        if words[index][0].isupper():
+            cagification = cagification.capitalize()
+
+        if words[index].endswith("."):
+            cagification += "."
+        elif words[index].endswith(","):
+            cagification += ","
+
+        words[index] = cagification
+
+    return " ".join(words)

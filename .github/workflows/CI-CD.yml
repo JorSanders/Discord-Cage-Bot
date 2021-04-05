@@ -47,9 +47,9 @@ jobs:
         echo "===== Adding key to agent"
         ssh-add ~/.ssh/ec2_deploy.key
         echo "===== Copying files to EC2-AWS"
-        scp jorkol/discord_cage_bot/src/discord_cage_bot.py ${{secrets.EC2_SSH}}:/usr/local/app/discord_cage_bot.py
+        rsync -r --exclude="tests" --exclude="__pycache__" jorkol/ ${{secrets.EC2_SSH}}:/usr/local/app/jorkol
         echo "(Re-)starting Discord Cage bot"
-        ssh ${{secrets.EC2_SSH}} 'kill $(pgrep python); python3 -u /usr/local/app/discord_cage_bot.py > /var/log/discord_cage_bot.log 2>&1 &'
+        ssh ${{secrets.EC2_SSH}} 'kill $(pgrep python); cd /usr/local/app/ && python3 -m jorkol.discord_cage_bot.src.discord_cage_bot > /var/log/discord_cage_bot.log 2>&1 &'
       shell: bash
       env:
         EC2_DEPLOY_KEY: ${{secrets.EC2_DEPLOY_KEY}}

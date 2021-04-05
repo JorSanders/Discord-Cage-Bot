@@ -13,11 +13,6 @@ from jorkol.discord_cage_bot.src.discord_message_utils import is_cage_quote_requ
 from jorkol.discord_cage_bot.src.string_utils import cagify_string
 
 
-def log(text):
-    if __name__ == "__main__":
-        print(text)
-
-
 class DiscordCageClient(discord.Client):
     async def on_ready(self):
         print("Logged in as")
@@ -26,19 +21,17 @@ class DiscordCageClient(discord.Client):
         print("------")
 
     async def on_message(self, message):
-        log("Message received")
+        print(datetime.now().strftime("%d/%m/%y %H:%M:%S") + "  Message received")
         if message.author.id == self.user.id:
-            # We do not want the bot to reply to itself
-            log("This bot message")
+            print("Message send by this bot")
             return
 
         if not in_whitelisted_channel(message):
-            # We do not want the bot to text in non whitelisted channels
-            log("Channel not in whitelist")
+            print("Message channel not whitelisted")
             return
 
         if is_yikes_message(message):
-            log(datetime.now().strftime("%d/%m/%y %H:%M:%S") + " - Y I K E S")
+            print("Message is Y I K E S")
             await message.add_reaction("🇾")
             await message.add_reaction("🇮")
             await message.add_reaction("🇰")
@@ -47,13 +40,15 @@ class DiscordCageClient(discord.Client):
             return
 
         if is_cage_quote_request(message):
+            print("Message is request for cage quote")
             await message.reply(
                 "You asked for a Cage quote? I shall deliver: \n"
                 + cagify_string(random_quote())
             )
+            return
 
         if is_cage_related_message(message):
-            log(datetime.now().strftime("%d/%m/%y %H:%M:%S") + " - C A G E")
+            print("Message is C A G E")
             await message.add_reaction("🇨")
             await message.add_reaction("🇦")
             await message.add_reaction("🇬")
