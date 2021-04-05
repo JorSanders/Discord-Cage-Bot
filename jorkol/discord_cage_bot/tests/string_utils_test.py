@@ -12,6 +12,7 @@ class TestStringUtils(unittest.TestCase):
 
     def test_cagify_string(self):
         self.assertTrue("cage" in cagify_string("one two three four"))
+        self.assertEqual("Cage", cagify_string("One"))
         self.assertEqual("cage.", cagify_string("one."))
         self.assertEqual("cage,", cagify_string("one,"))
 

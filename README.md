@@ -13,7 +13,7 @@ If for some reason you want to contribute to this bot. Make sure the tests pass 
 ## Usage
 Start the bot
 ```shell
-DISCORD_BOT_TOKEN=xxxx python3 src/discord_cage_bot.py
+DISCORD_BOT_TOKEN=xxxx python3 -m jorkol.discord_cage_bot.src.discord_cage_bot
 ```
 
 Get the bot token from [here](https://discord.com/developers/applications)
