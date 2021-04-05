@@ -9,11 +9,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@latest
+        uses: actions/checkout@v2
       - name: Run unittest
         run: |
           pwd
-          ls -altr
+          ls -altr .flake8
       - name: Run Super-Linter
         uses: github/super-linter@latest
         env:
@@ -25,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@latest
+        uses: actions/checkout@v2
       - name: Run unittest
         run: |
           pip3 install discord
@@ -39,7 +39,7 @@ jobs:
     name: Deploy to production server
     steps:
     - name: Checkout code
-      uses: actions/checkout@latest
+      uses: actions/checkout@v2
     - name: Deploy Discord Cage bot to production server and start it
       run: |
         echo "===== Creating ~/.ssh directory"
