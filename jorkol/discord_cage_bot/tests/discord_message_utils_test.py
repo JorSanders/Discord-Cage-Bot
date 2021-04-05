@@ -2,19 +2,15 @@
 
 import unittest
 
-from jorkol.discord_cage_bot.src.discord_cage_bot import (
+from jorkol.discord_cage_bot.src.discord_message_utils import (
     is_cage_related_message,
     is_yikes_message,
     is_whitelisted_channel,
-    string_contains_word,
+    is_cage_quote_request,
 )
 
 
 class TestDiscordCageBot(unittest.TestCase):
-    def test_string_contains_word(self):
-        self.assertTrue(string_contains_word("I like dropping cage", ["cage"]))
-        self.assertFalse(string_contains_word("I like playing caustic", ["cage"]))
-
     def test_is_whitelisted_channel(self):
         self.assertFalse(is_whitelisted_channel(""))
         self.assertTrue(is_whitelisted_channel("general"))
@@ -60,6 +56,19 @@ class TestDiscordCageBot(unittest.TestCase):
 
         discord_message.content = "cage"
         self.assertFalse(is_yikes_message(discord_message))
+        discord_message.content = ""
+
+    def test_is_cage_quote_request(self):
+        discord_message = type("MessageMock", (object,), {"content": ""})()
+
+        self.assertFalse(is_cage_quote_request(discord_message))
+
+        discord_message.content = "I would like a quote about cage"
+        self.assertTrue(is_cage_quote_request(discord_message))
+        discord_message.content = ""
+
+        discord_message.content = "caustic"
+        self.assertFalse(is_cage_quote_request(discord_message))
         discord_message.content = ""
 
 
