@@ -1,5 +1,3 @@
-"""This is a module that loads a random quotes"""
-
 from random import randrange
 
 

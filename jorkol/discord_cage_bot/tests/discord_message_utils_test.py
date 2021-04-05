@@ -1,5 +1,3 @@
-"""Unit-Test Discord Cage Bot"""
-
 import unittest
 
 from jorkol.discord_cage_bot.src.discord_message_utils import (
@@ -7,6 +5,7 @@ from jorkol.discord_cage_bot.src.discord_message_utils import (
     is_yikes_message,
     in_whitelisted_channel,
     is_cage_quote_request,
+    is_cage_insult,
 )
 
 
@@ -76,6 +75,19 @@ class TestDiscordCageBot(unittest.TestCase):
 
         discord_message.content = "caustic"
         self.assertFalse(is_cage_quote_request(discord_message))
+        discord_message.content = ""
+
+    def test_is_cage_insult(self):
+        discord_message = type("MessageMock", (object,), {"content": ""})()
+
+        self.assertFalse(is_cage_insult(discord_message))
+
+        discord_message.content = "Cage is stupid"
+        self.assertTrue(is_cage_insult(discord_message))
+        discord_message.content = ""
+
+        discord_message.content = "Cage is life"
+        self.assertFalse(is_cage_insult(discord_message))
         discord_message.content = ""
 
 

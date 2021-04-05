@@ -1,5 +1,3 @@
-"""Unit-Test Discord Cage Bot"""
-
 import unittest
 
 from jorkol.discord_cage_bot.src.string_utils import string_contains_word, cagify_string
