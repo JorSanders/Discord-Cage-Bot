@@ -15,7 +15,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VALIDATE_PYTHON_ISORT: false
-          PYTHON_FLAKE8_CONFIG_FILE: /github/workspace/.flake8
+          PYTHON_FLAKE8_CONFIG_FILE: $GITHUB_WORKSPACE/.flake8
   unit-test:
     name: Unit tests
     runs-on: ubuntu-latest
