@@ -15,7 +15,7 @@ jobs:
           pwd
           ls -altr .flake8
       - name: Run Super-Linter
-        uses: github/super-linter@v3
+        uses: github/super-linter@latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VALIDATE_PYTHON_ISORT: false
