@@ -26,7 +26,7 @@ jobs:
           pip3 install discord
           python3  -m unittest jorkol/discord_cage_bot/tests/*.py
         shell: bash
-  deploy:
+  production-deploy:
     needs: [lint, unit-test]
     if: github.ref == 'refs/heads/master'
     environment: production
