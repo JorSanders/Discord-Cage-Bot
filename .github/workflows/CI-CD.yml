@@ -10,11 +10,16 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+      - name: Run unittest
+        run: |
+          pwd
+          ls -altr .flake8
       - name: Run Super-Linter
-        uses: github/super-linter@v3
+        uses: github/super-linter@latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VALIDATE_PYTHON_ISORT: false
+          PYTHON_FLAKE8_CONFIG_FILE: .flake8
   unit-test:
     name: Unit tests
     runs-on: ubuntu-latest

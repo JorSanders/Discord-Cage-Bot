@@ -1,5 +1,3 @@
-"""This is a module that loads a random quotes"""
-
 from jorkol.discord_cage_bot.src.string_utils import string_contains_word
 
 whitelisted_channels = ["general", "cage"]
@@ -70,3 +68,10 @@ def in_whitelisted_channel(message):
 def is_cage_quote_request(message):
     content = message.content.lower()
     return "cage" in content and "quote" in content
+
+
+def is_cage_insult(message):
+    content = message.content.lower()
+    return string_contains_word(content, ["cage", "bot"]) and string_contains_word(
+        content, ["stupid", "lame"]
+    )
