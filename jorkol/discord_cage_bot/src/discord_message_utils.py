@@ -63,8 +63,8 @@ def is_cage_related_message(message):
     return False
 
 
-def is_whitelisted_channel(channel_name):
-    return string_contains_word(channel_name, whitelisted_channels)
+def in_whitelisted_channel(message):
+    return string_contains_word(message.channel.name, whitelisted_channels)
 
 
 def is_cage_quote_request(message):

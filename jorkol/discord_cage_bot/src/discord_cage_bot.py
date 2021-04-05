@@ -6,7 +6,7 @@ from datetime import datetime
 import discord
 
 from jorkol.discord_cage_bot.src.quote_generator import random_quote
-from jorkol.discord_cage_bot.src.discord_message_utils import is_whitelisted_channel
+from jorkol.discord_cage_bot.src.discord_message_utils import in_whitelisted_channel
 from jorkol.discord_cage_bot.src.discord_message_utils import is_yikes_message
 from jorkol.discord_cage_bot.src.discord_message_utils import is_cage_related_message
 from jorkol.discord_cage_bot.src.discord_message_utils import is_cage_quote_request
@@ -32,7 +32,7 @@ class DiscordCageClient(discord.Client):
             log("This bot message")
             return
 
-        if not is_whitelisted_channel(message.channel.name):
+        if not in_whitelisted_channel(message):
             # We do not want the bot to text in non whitelisted channels
             log("Channel not in whitelist")
             return

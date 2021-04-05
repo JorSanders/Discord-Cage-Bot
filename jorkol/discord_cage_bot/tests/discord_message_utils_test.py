@@ -5,16 +5,28 @@ import unittest
 from jorkol.discord_cage_bot.src.discord_message_utils import (
     is_cage_related_message,
     is_yikes_message,
-    is_whitelisted_channel,
+    in_whitelisted_channel,
     is_cage_quote_request,
 )
 
 
 class TestDiscordCageBot(unittest.TestCase):
-    def test_is_whitelisted_channel(self):
-        self.assertFalse(is_whitelisted_channel(""))
-        self.assertTrue(is_whitelisted_channel("general"))
-        self.assertFalse(is_whitelisted_channel("memes"))
+    def test_in_whitelisted_channel(self):
+        channel = type(
+            "ChannelMock", (object,), {"name": ""}
+        )()
+        discord_message = type(
+            "MessageMock", (object,), {"channel": channel}
+        )()
+
+        self.assertFalse(in_whitelisted_channel(discord_message))
+
+        discord_message.channel.name = "general"
+        self.assertTrue(in_whitelisted_channel(discord_message))
+
+        discord_message.channel.name = "memes"
+        self.assertFalse(in_whitelisted_channel(discord_message))
+
 
     def test_is_cage_related_message(self):
         discord_message = type(
