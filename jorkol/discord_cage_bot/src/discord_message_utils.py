@@ -40,7 +40,7 @@ apex_words = [
     "bathe",
     "broth",
     "down",
-    "up",
+    " up",
 ]
 
 yikes_words = ["caustic", "worlds edge", "world's edge"]
