@@ -10,10 +10,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Run unittest
-        run: |
-          pwd
-          ls -altr .flake8
       - name: Run Super-Linter
         uses: github/super-linter@latest
         env:
