@@ -8,7 +8,7 @@ def string_contains_word(text, word_list):
 def cagify_string(text):
     words = text.split()
     word_count = len(words)
-    cage_count = int(word_count * 0.15)
+    cage_count = int(word_count * 0.08)
 
     if cage_count == 0:
         cage_count = 1
