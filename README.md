@@ -20,7 +20,16 @@ Get the bot token from [here](https://discord.com/developers/applications)
 
 ## Setup
 - Install python3 and pip3
+```shell
+sudo apt install python3-pip
+```
 - Install discord pip package
 ```shell
 pip3 install discord
+```
+dev dependencies
+```shell
+pip3 install black
+pip3 install flake8
+pip3 install pylint
 ```
