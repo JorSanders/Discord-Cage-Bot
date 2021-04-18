@@ -25,7 +25,7 @@ jobs:
       - name: Run unittest
         run: |
           pip3 install discord
-          python3  -m unittest jorkol/discord_cage_bot/tests/*.py
+          python3  -m unittest -v jorkol/discord_cage_bot/tests/*_test.py
         shell: bash
   production-deploy:
     needs: [lint, unit-test]
