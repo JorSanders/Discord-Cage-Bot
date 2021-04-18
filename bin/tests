@@ -9,4 +9,4 @@ echo "Running flake8"
 python3 -m flake8 jorkol/discord_cage_bot/**/*.py
 
 # Unit test
-python3  -m unittest jorkol/discord_cage_bot/tests/*.py
+python3  -m unittest -v jorkol/discord_cage_bot/tests/*_test.py
