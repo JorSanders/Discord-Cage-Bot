@@ -24,6 +24,7 @@ def is_signal_word(word):
     return word in [
         "and",
         "as",
+        "or",
         "additionally",
         "along",
         "with",
