@@ -16,7 +16,35 @@ def is_cage(word):
 
 
 def is_cagifyable(word):
-    return not (is_to_be_verb(word) or is_cage(word))
+    return not (is_to_be_verb(word) or is_cage(word) or is_signal_word(word))
+
+
+def is_signal_word(word):
+    word = strip_non_alpha(word).lower()
+    return word in [
+        "and",
+        "as",
+        "additionally",
+        "along",
+        "with",
+        "also",
+        "in",
+        "plus",
+        "similarly",
+        "likewise",
+        "too",
+        "but",
+        "although",
+        "however",
+        "instead",
+        "except",
+        "currently",
+        "while",
+        "now",
+        "later",
+        "next",
+        "ultimately",
+    ]
 
 
 def strip_non_alpha(text):

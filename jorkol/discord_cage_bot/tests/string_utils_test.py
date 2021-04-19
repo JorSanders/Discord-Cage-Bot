@@ -8,6 +8,7 @@ from jorkol.discord_cage_bot.src.string_utils import (
     is_cagifyable,
     is_cage,
     strip_non_alpha,
+    is_signal_word,
 )
 
 
@@ -57,6 +58,7 @@ class TestStringUtils(unittest.TestCase):
     def test_is_cagifyable(self):
         self.assertFalse(is_cagifyable("cage"))
         self.assertFalse(is_cagifyable("is"))
+        self.assertFalse(is_cagifyable("but"))
         self.assertTrue(is_cagifyable("caustic"))
 
     def test_strip_non_alpha(self):
@@ -65,6 +67,11 @@ class TestStringUtils(unittest.TestCase):
         self.assertEqual("cage", strip_non_alpha("ca@ge"))
         self.assertEqual("", strip_non_alpha("!"))
         self.assertEqual("", strip_non_alpha(""))
+
+    def test_is_signal_word(self):
+        self.assertFalse(is_signal_word("cage"))
+        self.assertTrue(is_signal_word("but"))
+        self.assertFalse(is_signal_word(""))
 
 
 if __name__ == "__main__":
