@@ -74,6 +74,7 @@ def cagify_string(text):
             if is_cagifyable(words[index]):
                 break
 
+        print(f"Replacing #{index} in text with {word_count} words")
         words[index] = cagify_word(words[index])
 
     return " ".join(words)
@@ -103,5 +104,7 @@ def cagify_word(word):
         cagification = cagification.capitalize()
 
     cagification += special_suffix
+
+    print(f"Replacing '{word}' with '{cagification}'")
 
     return cagification
