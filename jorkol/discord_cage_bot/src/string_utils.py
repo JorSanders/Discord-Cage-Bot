@@ -62,8 +62,8 @@ def cagify_string(text):
 
     for _ in range(cage_count):
 
-        # 10 rolls to find a cagifyable word
-        for _ in range(10):
+        # 40 rolls to find a cagifyable word
+        for _ in range(40):
             index = randrange(word_count)
             if is_cagifyable(words[index]):
                 break
