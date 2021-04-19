@@ -45,6 +45,12 @@ def is_signal_word(word):
         "later",
         "next",
         "ultimately",
+        "no",
+        "yes",
+        "the",
+        "a",
+        "an",
+        "affirmative",
     ]
 
 
