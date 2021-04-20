@@ -61,7 +61,7 @@ def strip_non_alpha(text):
 def cagify_string(text):
     words = text.split()
     word_count = len(words)
-    cage_count = int(word_count * 0.08)
+    cage_count = int(word_count * 0.1)
 
     if cage_count == 0:
         cage_count = 1
