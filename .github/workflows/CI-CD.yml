@@ -57,7 +57,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: jorsanders/discord_cage_bot:latest
+          tags: ghcr.io/jorsanders/discord_cage_bot:latest
   production-deploy:
     needs: [dockerize]
     # if: github.ref == 'refs/heads/master'
