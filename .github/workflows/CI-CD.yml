@@ -73,8 +73,8 @@ jobs:
       run: |
         echo "===== Creating ~/.ssh directory"
         mkdir -p ~/.ssh/
-        echo "$EC2_KNOWN_HOSTS" > ~/.ssh/known_hosts
-        echo "$EC2_DEPLOY_KEY" > ~/.ssh/ec2_deploy.key
+        echo "$ENVIRONMENT_SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+        echo "$ENVIRONMENT_SSH_KEY" > ~/.ssh/ec2_deploy.key
         chmod 600 ~/.ssh/ec2_deploy.key
         echo "===== Starting SSH Agent"
         # shellcheck disable=SC2046
@@ -84,6 +84,6 @@ jobs:
         echo "(Re-)starting Discord Cage bot"
       shell: bash
       env:
-        EC2_DEPLOY_KEY: ${{secrets.EC2_DEPLOY_KEY}}
-        EC2_KNOWN_HOSTS: ${{secrets.EC2_KNOWN_HOSTS}}
-        EC2_SSH: ${{secrets.EC2_SSH}}
+        ENVIRONMENT_HOST: ${{secrets.ENVIRONMENT_HOST}}
+        ENVIRONMENT_SSH_KEY: ${{secrets.ENVIRONMENT_SSH_KEY}}
+        ENVIRONMENT_SSH_KNOWN_HOSTS: ${{secrets.ENVIRONMENT_SSH_KNOWN_HOSTS}}
