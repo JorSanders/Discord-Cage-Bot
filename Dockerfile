@@ -1,9 +1,13 @@
 FROM python:3.10-alpine
 
-RUN pip install discord requests
+COPY requirements.txt /tmp/requirements.txt
+
+RUN pip install --no-cache-dir discord -r /tmp/requirements.txt
+
+RUN RUN /tmp/requirements.txt
 
 COPY jorkol /usr/local/app/jorkol
 
 WORKDIR /usr/local/app
 
-ENTRYPOINT python -m jorkol.discord_cage_bot.src.discord_cage_bot
+ENTRYPOINT ['python' '-m' 'jorkol.discord_cage_bot.src.discord_cage_bot']
