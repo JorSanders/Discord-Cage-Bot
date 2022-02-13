@@ -59,8 +59,8 @@ jobs:
           push: true
           tags: ghcr.io/jorsanders/discord_cage_bot:latest
   production-deploy:
-    needs: [dockerize]
-    if: github.ref == 'refs/heads/master'
+    # needs: [dockerize]
+    # if: github.ref == 'refs/heads/master'
     environment: production
     runs-on: ubuntu-latest
     name: Deploy to production server
@@ -82,8 +82,10 @@ jobs:
         echo "===== Adding key to agent"
         ssh-add ~/.ssh/ec2_deploy.key
         echo "(Re-)starting Discord Cage bot"
+        ssh "ENVIRONMENT_USER@ENVIRONMENT_HOST" 'whoami'
       shell: bash
       env:
         ENVIRONMENT_HOST: ${{secrets.ENVIRONMENT_HOST}}
+        ENVIRONMENT_USER: ${{secrets.ENVIRONMENT_USER}}
         ENVIRONMENT_SSH_KEY: ${{secrets.ENVIRONMENT_SSH_KEY}}
         ENVIRONMENT_SSH_KNOWN_HOSTS: ${{secrets.ENVIRONMENT_SSH_KNOWN_HOSTS}}
