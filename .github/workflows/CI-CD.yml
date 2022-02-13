@@ -32,7 +32,7 @@ jobs:
           python3 -m unittest -v jorkol/discord_cage_bot/tests/*_test.py
         shell: bash
   dockerize:
-    needs: [lint, unit-test]
+    # needs: [lint, unit-test]
     # if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     steps:
