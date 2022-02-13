@@ -33,7 +33,7 @@ jobs:
         shell: bash
   dockerize:
     needs: [lint, unit-test]
-    # if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     steps:
       -
@@ -61,8 +61,7 @@ jobs:
           tags: ghcr.io/jorsanders/discord_cage_bot:latest
   production-deploy:
     needs: [dockerize]
-    ###
-    # if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/master'
     environment: production
     runs-on: ubuntu-latest
     name: Deploy to production server
