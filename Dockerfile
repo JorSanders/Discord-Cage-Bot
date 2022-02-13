@@ -1,7 +1,7 @@
 FROM python:3.10-alpine
 
 COPY requirements.txt /tmp/requirements.txt
-RUN apk add --no-cache gcc  &&\
+RUN apk add --no-cache build-base &&\
     pip install --no-cache-dir -r /tmp/requirements.txt &&\
     rm -rf /tmp/requirements.txt
 
