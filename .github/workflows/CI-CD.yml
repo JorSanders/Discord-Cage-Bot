@@ -12,6 +12,11 @@ jobs:
         name: Checkout code
         uses: actions/checkout@v2
       -
+        name: Copy Linter configs
+        run: |
+          cp .flake8 .github/linters
+          cp .hadeloint.yaml .github/linters
+      -
         name: Run Super-Linter
         uses: github/super-linter@latest
         env:
