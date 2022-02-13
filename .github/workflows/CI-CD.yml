@@ -83,7 +83,7 @@ jobs:
         echo "===== Adding key to agent"
         ssh-add ~/.ssh/ec2_deploy.key
         echo "(Re-)starting Discord Cage bot"
-        ssh "$ENVIRONMENT_USER@$ENVIRONMENT_HOST" 'whoami'
+        ssh "$ENVIRONMENT_USER@$ENVIRONMENT_HOST" 'docker stop discord_cage_bot &> /dev/null; docker run -it -d --rm --name discord_cage_bot -e DISCORD_BOT_TOKEN ghcr.io/jorsanders/discord_cage_bot:latest'
       shell: bash
       env:
         ENVIRONMENT_HOST: ${{secrets.ENVIRONMENT_HOST}}
