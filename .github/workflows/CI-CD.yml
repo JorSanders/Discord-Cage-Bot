@@ -44,7 +44,7 @@ jobs:
         echo "$EC2_DEPLOY_KEY" > ~/.ssh/ec2_deploy.key
         chmod 600 ~/.ssh/ec2_deploy.key
         echo "===== Starting SSH Agent"
-        eval `ssh-agent -s`
+        eval $(ssh-agent -s)
         echo "===== Adding key to agent"
         ssh-add ~/.ssh/ec2_deploy.key
         echo "===== Copying files to EC2-AWS"
