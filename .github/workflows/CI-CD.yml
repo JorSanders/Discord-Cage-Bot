@@ -57,6 +57,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
+          platforms: linux/amd64,linux/arm/v7
           tags: ghcr.io/jorsanders/discord_cage_bot:latest
   production-deploy:
     needs: [dockerize]
@@ -73,8 +74,8 @@ jobs:
       run: |
         echo "===== Creating ~/.ssh directory"
         mkdir -p ~/.ssh/
-        echo "$EC2_KNOWN_HOSTS" > ~/.ssh/known_hosts
-        echo "$EC2_DEPLOY_KEY" > ~/.ssh/ec2_deploy.key
+        echo "$ENVIRONMENT_SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+        echo "$ENVIRONMENT_SSH_KEY" > ~/.ssh/ec2_deploy.key
         chmod 600 ~/.ssh/ec2_deploy.key
         echo "===== Starting SSH Agent"
         # shellcheck disable=SC2046
@@ -82,8 +83,10 @@ jobs:
         echo "===== Adding key to agent"
         ssh-add ~/.ssh/ec2_deploy.key
         echo "(Re-)starting Discord Cage bot"
+        ssh "$ENVIRONMENT_USER@$ENVIRONMENT_HOST" 'docker stop discord_cage_bot &> /dev/null; docker run -it -d --rm --name discord_cage_bot -e DISCORD_BOT_TOKEN ghcr.io/jorsanders/discord_cage_bot:latest'
       shell: bash
       env:
-        EC2_DEPLOY_KEY: ${{secrets.EC2_DEPLOY_KEY}}
-        EC2_KNOWN_HOSTS: ${{secrets.EC2_KNOWN_HOSTS}}
-        EC2_SSH: ${{secrets.EC2_SSH}}
+        ENVIRONMENT_HOST: ${{secrets.ENVIRONMENT_HOST}}
+        ENVIRONMENT_USER: ${{secrets.ENVIRONMENT_USER}}
+        ENVIRONMENT_SSH_KEY: ${{secrets.ENVIRONMENT_SSH_KEY}}
+        ENVIRONMENT_SSH_KNOWN_HOSTS: ${{secrets.ENVIRONMENT_SSH_KNOWN_HOSTS}}
