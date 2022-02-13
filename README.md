@@ -25,7 +25,7 @@ sudo apt install python3-pip
 ```
 - Install discord pip package
 ```shell
-pip3 install discord
+pip3 install -r requirements.txt
 ```
 dev dependencies
 ```shell
