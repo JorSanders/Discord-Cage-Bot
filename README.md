@@ -1,6 +1,6 @@
 # Discord Cage bot
 This is a slightly overdeveloped Discord bot that replies "C A G E" or "Y I K E S" to certain messages.
-Because building a dockerized, multi-platform, unit tested, and linted discord bot with Github CI-CD workflow is easier than manually clicking reactions in discord as an inside joke.
+Because building a dockerized, multi-platform, unit tested, and linted discord bot with GitHub CI-CD workflow is easier than manually clicking reactions in discord as an inside joke.
 Note wasn't easier or faster...
 
 ## Badges
