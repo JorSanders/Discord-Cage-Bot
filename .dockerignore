@@ -1,0 +1,6 @@
+# specific docker ignored
+.git
+**/tests
+
+# Copy from .gitignore
+**/__pycache__
