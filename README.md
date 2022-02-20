@@ -7,7 +7,7 @@ Note wasn't easier or faster...
 ![GitHub Super-Linter](https://github.com/JorSanders/discord_cage_bot/workflows/CI%2FCD/badge.svg)
 
 ## Contribute?
-Uhm why? But go ahead make a suggestion or PR, i'll probably implement it.
+Uhm why? But go ahead make a suggestion or PR, I'll probably implement it.
 
 ## Usage
 The Cage bot requires a discord bot token set as env var. Get the bot token from [here](https://discord.com/developers/applications)
@@ -31,16 +31,12 @@ docker stop discord_cage_bot &> /dev/null; docker build . -t ghcr.io/jorsanders/
 ```
 
 ## Setup
-- Install pyenv
-    - https://github.com/pyenv/pyenv
-    - https://github.com/pyenv/pyenv#automatic-installer
-
-
-- Install discord pip package
-```shell
-pip3 install -r requirements.txt
-```
-dev dependencies
-```shell
-pip3 install -r dev.requirements.txt
-```
+- Install pyenv (Alternative install python and pip native)
+  - [PyEnv](https://github.com/pyenv/pyenv) or native Python3 and pip
+  - [PyEnv Auto installer](https://github.com/pyenv/pyenv#automatic-installer)
+- Install python version in pyenv
+  - `pyenv install`
+- Install pip packages
+  - `pip3 install -r requirements.txt`
+- (Optional) Install dev pip packages
+  - `pip3 install -r dev.requirements.txt`
