@@ -25,14 +25,14 @@ Start the bot as container
 docker stop discord_cage_bot &> /dev/null; docker run -it -d --rm --name discord_cage_bot -e CAGE_BOT_TOKEN ghcr.io/jorsanders/discord_cage_bot:latest
 ```
 
-Start the bot as frewly build container
+Start the bot as freshly build container
 ```shell
 docker stop discord_cage_bot &> /dev/null; docker build . -t ghcr.io/jorsanders/discord_cage_bot:local && docker run -it --rm --name discord_cage_bot -e CAGE_BOT_TOKEN ghcr.io/jorsanders/discord_cage_bot:local
 ```
 
 ## Setup
 - Install pyenv (Alternative install python and pip native)
-  - [PyEnv](https://github.com/pyenv/pyenv) or native Python3 and pip
+  - [PyEnv](https://github.com/pyenv/pyenv)
   - [PyEnv Auto installer](https://github.com/pyenv/pyenv#automatic-installer)
 - Install python version in pyenv
   - `pyenv install`
