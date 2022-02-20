@@ -1,3 +1,4 @@
+import logging
 from random import randrange
 
 
@@ -74,7 +75,7 @@ def cagify_string(text):
             if is_cagifyable(words[index]):
                 break
 
-        print(f"Replacing #{index} in text with {word_count} words")
+        logging.debug("Replacing #{%d} in text with {%d} words", index, word_count)
         words[index] = cagify_word(words[index])
 
     return " ".join(words)
@@ -105,6 +106,6 @@ def cagify_word(word):
 
     cagification += special_suffix
 
-    print(f"Replacing '{word}' with '{cagification}'")
+    logging.debug("Replacing '%s' with '%s'", word, cagification)
 
     return cagification

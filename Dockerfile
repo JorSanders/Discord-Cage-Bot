@@ -6,5 +6,7 @@ RUN apk add --no-cache build-base &&\
     rm -rf /tmp/requirements.txt
 
 COPY jorkol /usr/local/app/jorkol
+ENV LOG_LEVEL "INFO"
+
 WORKDIR /usr/local/app
-ENTRYPOINT ["python", "-m", "jorkol.discord_cage_bot.src.discord_cage_bot"]
+ENTRYPOINT ["sh", "-c", "python -m jorkol.discord_cage_bot.src.discord_cage_bot --log \"$LOG_LEVEL\""]
