@@ -70,7 +70,7 @@ jobs:
       name: Checkout code
       uses: actions/checkout@v2
     -
-      name: Deploy Discord Cage bot to production server and start it
+      name: Deploy to production server and run
       run: |
         echo "===== Creating ~/.ssh directory"
         mkdir -p ~/.ssh/
