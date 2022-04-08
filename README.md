@@ -22,12 +22,12 @@ python -m jorkol.discord_cage_bot.src.discord_cage_bot
 
 Start the bot as container from repository image
 ```shell
-docker stop discord_cage_bot &> /dev/null; docker pull ghcr.io/jorsanders/discord_cage_bot:latest && docker run -it -d --rm --name discord_cage_bot -e CAGE_BOT_TOKEN ghcr.io/jorsanders/discord_cage_bot:latest
+docker stop discord_cage_bot &> /dev/null; docker pull ghcr.io/jorsanders/discord_cage_bot:latest && docker run -d --rm --name discord_cage_bot -e CAGE_BOT_TOKEN ghcr.io/jorsanders/discord_cage_bot:latest && docker logs -f discord_cage_bot
 ```
 
 Start the bot as container from local build image
 ```shell
-docker stop discord_cage_bot &> /dev/null; docker build . -t ghcr.io/jorsanders/discord_cage_bot:local && docker run -it --rm --name discord_cage_bot -e CAGE_BOT_TOKEN ghcr.io/jorsanders/discord_cage_bot:local
+docker stop discord_cage_bot &> /dev/null; docker build . -t ghcr.io/jorsanders/discord_cage_bot:local && docker run -d --rm --name discord_cage_bot -e CAGE_BOT_TOKEN ghcr.io/jorsanders/discord_cage_bot:local && docker logs -f discord_cage_bot
 ```
 
 ## Setup
