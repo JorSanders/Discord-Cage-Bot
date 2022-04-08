@@ -82,8 +82,7 @@ jobs:
         eval $(ssh-agent -s)
         echo "===== Adding key to agent"
         ssh-add ~/.ssh/ec2_deploy.key
-        echo "(Re-)starting Discord Cage bot"
-        ssh "$ENVIRONMENT_USER@$ENVIRONMENT_HOST" 'docker stop discord_cage_bot &> /dev/null;docker pull ghcr.io/jorsanders/discord_cage_bot:latest && docker run -it -d --rm --name discord_cage_bot -e CAGE_BOT_TOKEN ghcr.io/jorsanders/discord_cage_bot:latest'
+        ssh "$ENVIRONMENT_USER@$ENVIRONMENT_HOST" 'cd /usr/local/applications/Rpi-setup && docker compose pull && docker compose up -d'
       shell: bash
       env:
         ENVIRONMENT_HOST: ${{secrets.ENVIRONMENT_HOST}}
