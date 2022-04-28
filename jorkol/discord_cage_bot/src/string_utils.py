@@ -1,84 +1,74 @@
 import logging
 from random import randrange
+import re
+
+to_be_verb_regexes = [r"^be$", r"^is$", r"^am$", r"^are$", r"^was$", r"^were$"]
+
+signal_word_regexes = [
+    r"^and$",
+    r"^as$",
+    r"^or$",
+    r"^additionally$",
+    r"^along$",
+    r"^with$",
+    r"^also$",
+    r"^in$",
+    r"^plus$",
+    r"^similarly$",
+    r"^likewise$",
+    r"^too$",
+    r"^but$",
+    r"^although$",
+    r"^however$",
+    r"^instead$",
+    r"^except$",
+    r"^currently$",
+    r"^while$",
+    r"^now$",
+    r"^later$",
+    r"^next$",
+    r"^ultimately$",
+    r"^no$",
+    r"^yes$",
+    r"^the$",
+    r"^a$",
+    r"^an$",
+    r"^affirmative$",
+]
+
+cage_word_regexes = [r"cage", r"caging", r"cagism"]
 
 
-def string_contains_word(text, word_list):
-    return any(word in text for word in word_list)
+def match_in_regex(text, regex):
+    pattern = re.compile(regex, re.IGNORECASE)
+    return pattern.search(text)
 
 
-def is_to_be_verb(word):
-    word = strip_non_alpha(word).lower()
-    return word in ["be", "is", "am", "are", "was", "were"]
-
-
-def is_cage(word):
-    word = strip_non_alpha(word).lower()
-    return word in ["cage", "caged", "caging", "cagism"]
-
-
-def is_cagifyable(word):
-    return not (is_to_be_verb(word) or is_cage(word) or is_signal_word(word))
-
-
-def is_signal_word(word):
-    word = strip_non_alpha(word).lower()
-    return word in [
-        "and",
-        "as",
-        "or",
-        "additionally",
-        "along",
-        "with",
-        "also",
-        "in",
-        "plus",
-        "similarly",
-        "likewise",
-        "too",
-        "but",
-        "although",
-        "however",
-        "instead",
-        "except",
-        "currently",
-        "while",
-        "now",
-        "later",
-        "next",
-        "ultimately",
-        "no",
-        "yes",
-        "the",
-        "a",
-        "an",
-        "affirmative",
-    ]
+def match_in_regexes(text, regexes):
+    for regex in regexes:
+        if match_in_regex(text, regex):
+            return True
+    return False
 
 
 def strip_non_alpha(text):
     return "".join(char for char in text if char.isalpha())
 
 
-def cagify_string(text):
-    words = text.split()
-    word_count = len(words)
-    cage_count = int(word_count * 0.1)
+def is_to_be_verb(word):
+    return match_in_regexes(strip_non_alpha(word), to_be_verb_regexes)
 
-    if cage_count == 0:
-        cage_count = 1
 
-    for _ in range(cage_count):
+def is_signal_word(word):
+    return match_in_regexes(strip_non_alpha(word), signal_word_regexes)
 
-        # 40 rolls to find a cagifyable word
-        for _ in range(40):
-            index = randrange(word_count)
-            if is_cagifyable(words[index]):
-                break
 
-        logging.debug("Replacing #{%d} in text with {%d} words", index, word_count)
-        words[index] = cagify_word(words[index])
+def is_cage_word(word):
+    return match_in_regexes(strip_non_alpha(word), cage_word_regexes)
 
-    return " ".join(words)
+
+def is_cagifyable(word):
+    return not (is_to_be_verb(word) or is_cage_word(word) or is_signal_word(word))
 
 
 def cagify_word(word):
@@ -109,3 +99,27 @@ def cagify_word(word):
     logging.debug("Replacing '%s' with '%s'", word, cagification)
 
     return cagification
+
+
+def cagify_string(text):
+    words = text.split()
+    word_count = len(words)
+    cage_count = int(word_count * 0.1)
+
+    if cage_count == 0:
+        cage_count = 1
+
+    for _ in range(cage_count):
+
+        # 40 rolls to find a cagifyable word
+        for _ in range(40):
+            index = randrange(word_count)
+            if is_cagifyable(words[index]):
+                break
+
+        logging.debug(
+            "Replacing #{%s} in word index {%d}/{%d} ", words[index], index, word_count
+        )
+        words[index] = cagify_word(words[index])
+
+    return " ".join(words)
