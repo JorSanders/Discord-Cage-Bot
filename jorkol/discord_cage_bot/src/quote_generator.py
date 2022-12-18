@@ -4,8 +4,8 @@ import requests
 
 
 def random_quote():
-    result = requests.get("https://goquotes-api.herokuapp.com/api/v1/random?count=1")
-    return json.loads(result.text)["quotes"][0]["text"]
+    result = requests.get("https://api.quotable.io/random")
+    return json.loads(result.text)["content"]
 
 
 if __name__ == "__main__":

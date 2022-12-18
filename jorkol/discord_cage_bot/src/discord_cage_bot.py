@@ -2,71 +2,40 @@ import argparse
 import logging
 import os
 import sys
-
 from datetime import datetime
 
 import discord
 
+from jorkol.discord_cage_bot.src.discord_message_utils import (
+    in_whitelisted_channel,
+    is_cage_insult,
+    is_cage_quote_request,
+    is_cage_related_message,
+    is_yikes_message,
+)
 from jorkol.discord_cage_bot.src.quote_generator import random_quote
-from jorkol.discord_cage_bot.src.discord_message_utils import in_whitelisted_channel
-from jorkol.discord_cage_bot.src.discord_message_utils import is_yikes_message
-from jorkol.discord_cage_bot.src.discord_message_utils import is_cage_related_message
-from jorkol.discord_cage_bot.src.discord_message_utils import is_cage_quote_request
-from jorkol.discord_cage_bot.src.discord_message_utils import is_cage_insult
 from jorkol.discord_cage_bot.src.string_utils import cagify_string
 
+parser = argparse.ArgumentParser()
+parser.add_argument(
+    "--loglevel",
+    default="debug",
+    help="Provide logging level. Example --loglevel debug, default=debug",
+)
 
-class DiscordCageClient(discord.Client):
-    async def on_ready(self):
-        logging.info(
-            """Logged in as:
-            user: %s
-            id: %s""",
-            self.user.name,
-            self.user.id,
-        )
+args = parser.parse_args()
 
-    async def on_message(self, message):
-        logging.info(
-            "%s Message received", datetime.now().strftime("%d/%m/%y %H:%M:%S")
-        )
-        if message.author.id == self.user.id:
-            logging.info("Message detected by this bot")
-            return
+logging.basicConfig(level=args.loglevel.upper())
 
-        if not in_whitelisted_channel(message):
-            logging.info("Message channel not whitelisted")
-            return
+discord_token = os.environ.get("CAGE_BOT_TOKEN")
+if discord_token == "":
+    logging.error("CAGE_BOT_TOKEN env var undefined")
+    sys.exit(1)
 
-        if is_yikes_message(message):
-            logging.info("Message is Y I K E S")
-            await message.add_reaction("🇾")
-            await message.add_reaction("🇮")
-            await message.add_reaction("🇰")
-            await message.add_reaction("🇪")
-            await message.add_reaction("🇸")
-            return
+intents = discord.Intents.default()
+intents.message_content = True
 
-        if is_cage_quote_request(message):
-            logging.info("Message is request for cage quote")
-            await message.reply(
-                "You asked for a Cage quote? I shall deliver: \n"
-                + cagify_string(random_quote())
-            )
-            return
-
-        if is_cage_insult(message):
-            logging.info("Message is an insult")
-            await message.reply(insult_response())
-            return
-
-        if is_cage_related_message(message):
-            logging.info("Message is C A G E")
-            await message.add_reaction("🇨")
-            await message.add_reaction("🇦")
-            await message.add_reaction("🇬")
-            await message.add_reaction("🇪")
-            return
+client = discord.Client(intents=intents)
 
 
 def insult_response():
@@ -90,21 +59,58 @@ def insult_response():
         """
 
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--loglevel",
-        default="warning",
-        help="Provide logging level. Example --loglevel debug, default=warning",
+@client.event
+async def on_ready():
+    logging.info(
+        """Logged in as:
+        user: %s
+        id: %s""",
+        client.user.name,
+        client.user.id,
     )
 
-    args = parser.parse_args()
 
-    logging.basicConfig(level=args.loglevel.upper())
+@client.event
+async def on_message(message):
+    if message.author == client.user:
+        logging.info("Message detected by this bot")
+        return
 
-    discord_cage_client = DiscordCageClient()
-    discord_token = os.environ.get("CAGE_BOT_TOKEN")
-    if discord_token == "":
-        logging.error("CAGE_BOT_TOKEN env var undefined")
-        sys.exit(1)
-    discord_cage_client.run(discord_token)
+    logging.info("%s Message received", datetime.now().strftime("%d/%m/%y %H:%M:%S"))
+
+    if not in_whitelisted_channel(message):
+        logging.info("Message channel not whitelisted")
+        return
+
+    if is_yikes_message(message):
+        logging.info("Message is Y I K E S")
+        await message.add_reaction("🇾")
+        await message.add_reaction("🇮")
+        await message.add_reaction("🇰")
+        await message.add_reaction("🇪")
+        await message.add_reaction("🇸")
+        return
+
+    if is_cage_quote_request(message):
+        logging.info("Message is request for cage quote")
+        await message.reply(
+            "You asked for a Cage quote? I shall deliver: \n"
+            + cagify_string(random_quote())
+        )
+        return
+
+    if is_cage_insult(message):
+        logging.info("Message is an insult")
+        await message.reply(insult_response())
+        return
+
+    if is_cage_related_message(message):
+        logging.info("Message is C A G E")
+        await message.add_reaction("🇨")
+        await message.add_reaction("🇦")
+        await message.add_reaction("🇬")
+        await message.add_reaction("🇪")
+        return
+
+
+client.run(discord_token)
