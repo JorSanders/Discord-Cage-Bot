@@ -8,11 +8,9 @@ jobs:
     name: Linters
     runs-on: ubuntu-latest
     steps:
-      -
-        name: Checkout code
-        uses: actions/checkout@v2
-      -
-        name: Run Super-Linter
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Run Super-Linter
         uses: github/super-linter@latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -22,11 +20,9 @@ jobs:
     name: Unit tests
     runs-on: ubuntu-latest
     steps:
-      -
-        name: Checkout code
-        uses: actions/checkout@v2
-      -
-        name: Run unittest
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Run unittest
         run: |
           pip3 install -r requirements.txt
           python3 -m unittest -v jorkol/discord_cage_bot/tests/*_test.py
@@ -36,24 +32,19 @@ jobs:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
-      -
-        name: Checkout
-        uses: actions/checkout@v2
-      -
-        name: Set up QEMU
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
-      -
-        name: Set up Docker Buildx
+      - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
-      -
-        name: Login to GitHub Container Registry
+      - name: Login to GitHub Container Registry
         uses: docker/login-action@v1
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      -
-        name: Build and push
+      - name: Build and push
         uses: docker/build-push-action@v2
         with:
           push: true
@@ -66,26 +57,24 @@ jobs:
     runs-on: ubuntu-latest
     name: Deploy to production server
     steps:
-    -
-      name: Checkout code
-      uses: actions/checkout@v2
-    -
-      name: Deploy to production server and run
-      run: |
-        echo "===== Creating ~/.ssh directory"
-        mkdir -p ~/.ssh/
-        echo "$ENVIRONMENT_SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
-        echo "$ENVIRONMENT_SSH_KEY" > ~/.ssh/ec2_deploy.key
-        chmod 600 ~/.ssh/ec2_deploy.key
-        echo "===== Starting SSH Agent"
-        # shellcheck disable=SC2046
-        eval $(ssh-agent -s)
-        echo "===== Adding key to agent"
-        ssh-add ~/.ssh/ec2_deploy.key
-        ssh "$ENVIRONMENT_USER@$ENVIRONMENT_HOST" 'cd /usr/local/applications/Rpi-setup && docker compose pull && docker compose up -d'
-      shell: bash
-      env:
-        ENVIRONMENT_HOST: ${{secrets.ENVIRONMENT_HOST}}
-        ENVIRONMENT_USER: ${{secrets.ENVIRONMENT_USER}}
-        ENVIRONMENT_SSH_KEY: ${{secrets.ENVIRONMENT_SSH_KEY}}
-        ENVIRONMENT_SSH_KNOWN_HOSTS: ${{secrets.ENVIRONMENT_SSH_KNOWN_HOSTS}}
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Deploy to production server and run
+        run: |
+          echo "===== Creating ~/.ssh directory"
+          mkdir -p ~/.ssh/
+          echo "$ENVIRONMENT_SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          echo "$ENVIRONMENT_SSH_KEY" > ~/.ssh/ec2_deploy.key
+          chmod 600 ~/.ssh/ec2_deploy.key
+          echo "===== Starting SSH Agent"
+          # shellcheck disable=SC2046
+          eval $(ssh-agent -s)
+          echo "===== Adding key to agent"
+          ssh-add ~/.ssh/ec2_deploy.key
+          ssh "$ENVIRONMENT_USER@$ENVIRONMENT_HOST" 'cd /usr/local/applications/Rpi-setup && docker compose pull && docker compose up -d'
+        shell: bash
+        env:
+          ENVIRONMENT_HOST: ${{secrets.ENVIRONMENT_HOST}}
+          ENVIRONMENT_USER: ${{secrets.ENVIRONMENT_USER}}
+          ENVIRONMENT_SSH_KEY: ${{secrets.ENVIRONMENT_SSH_KEY}}
+          ENVIRONMENT_SSH_KNOWN_HOSTS: ${{secrets.ENVIRONMENT_SSH_KNOWN_HOSTS}}
